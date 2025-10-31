@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Sixta Ramona Villar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #ecf0f1;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+
+        .contact-item i {
+            color: #3498db;
+        }
+
+        .action-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: scale(1.1);
+        }
+
+        .btn-download {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #3498db;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .experience-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .experience-title {
+            font-size: 1.2em;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .objective-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .education-item {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .reference-box {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ff9800;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .action-buttons {
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        .print-hidden {
+            display: block;
+        }
+
+        @media print {
+            .print-hidden {
+                display: none !important;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="cv-content">
+        <div class="header">
+            <div class="photo-container">
+                <span>SV</span>
+                <!-- Reemplaza con tu foto: <img src="tu-foto.jpg" alt="Sixta Villar"> -->
+            </div>
+            <h1>Sixta Ramona Villar</h1>
+            <div class="subtitle">Ejecutiva de Cuentas & Siniestros | Sector Asegurador</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>376-154530613</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>sixta.r.v@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Virapita C.21 Mz 44, Garupa</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Datos Personales -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Datos Personales
+                </h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">DNI</div>
+                        <div>26.792.151</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Fecha de Nacimiento</div>
+                        <div>30 de Marzo de 1979</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Estado Civil</div>
+                        <div>Soltera (con hijos)</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Disponibilidad</div>
+                        <div>Full Time</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Objetivo Profesional -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-bullseye"></i>
+                    Objetivo Profesional
+                </h2>
+                <div class="objective-box">
+                    Integrarme a una organización que valore la estabilidad y el desarrollo profesional continuo. Aportar mi experiencia en el sector asegurador, mis competencias en gestión administrativa y operativa, sumando mis principios éticos y compromiso. Busco formar parte de un equipo donde pueda potenciar mis capacidades de planificación y organización, mientras contribuyo activamente al logro de los objetivos corporativos y encuentro oportunidades de crecimiento personal y profesional.
+                </div>
+            </div>
+
+            <!-- Habilidades Profesionales -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Habilidades & Competencias
+                </h2>
+                <div class="skills-container">
+                    <div class="skill-item">
+                        <i class="fas fa-handshake"></i><br>
+                        Trabajo en Equipo
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-lightbulb"></i><br>
+                        Resolución de Problemas
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-sync"></i><br>
+                        Flexibilidad Operativa
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-chart-line"></i><br>
+                        Orientación a Resultados
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-brain"></i><br>
+                        Aprendizaje Continuo
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-shield-alt"></i><br>
+                        Integridad Profesional
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-users"></i><br>
+                        Atención al Cliente
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-tasks"></i><br>
+                        Gestión Administrativa
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experiencia Laboral -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Experiencia Laboral
+                </h2>
+                <div class="experience-item">
+                    <div class="experience-title">Ejecutiva de Cuentas & Siniestros | Sector Asegurador</div>
+                    <div style="color: #7f8c8d; margin-bottom: 10px;">Más de 5 años de experiencia</div>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li>Atención integral a Productores Asesores de Seguros (PAS)</li>
+                        <li>Cotización de pólizas: flotas, comercio, consorcios, vida, ART</li>
+                        <li>Emisión y suscripción de riesgos</li>
+                        <li>Gestión y tramitación de siniestros</li>
+                        <li>Administración de cobranzas y facturación</li>
+                        <li>Conciliación de cuentas y liquidación de comisiones</li>
+                        <li>Atención telefónica y presencial de clientes</li>
+                        <li>Gestión de pólizas y documentación</li>
+                        <li>Administración de agenda y legajos</li>
+                    </ul>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-title">Acompañante Tutora</div>
+                    <div style="color: #7f8c8d; margin-bottom: 10px;">Instituto Cristiano República Argentina (2012)</div>
+                </div>
+            </div>
+
+            <!-- Formación Académica -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Formación Académica
+                </h2>
+                <div class="education-item">
+                    <strong>Analista Contable</strong><br>
+                    Escuela Normal N°10 "San Antonio"
+                </div>
+                <div class="education-item">
+                    <strong>Técnico Auxiliar en Secretariado Administrativo</strong><br>
+                    B.P.C.O. L. N° 27 (1997-2000)
+                </div>
+                <div class="education-item">
+                    <strong>Profesorado en Educación Especial</strong><br>
+                    Estudios incompletos
+                </div>
+            </div>
+
+            <!-- Conocimientos Técnicos -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-laptop-code"></i>
+                    Conocimientos Técnicos
+                </h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> 
+                        Microsoft Office (Word, Excel, PowerPoint)
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> 
+                        Outlook & Gestión de Correos
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> 
+                        Windows
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> 
+                        Internet y Navegadores
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> 
+                        Sistema Sinapsis
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-check-circle" style="color: #27ae60;"></i> 
+                        Sistema Braille
+                    </div>
+                </div>
+            </div>
+
+            <!-- Referencias -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-address-book"></i>
+                    Referencias Profesionales
+                </h2>
+                <div class="reference-box">
+                    <strong>Luis Marcelo Ullón</strong><br>
+                    PAS - Organizador<br>
+                    <i class="fas fa-phone"></i> 376-4739728
+                </div>
+            </div>
+
+            <!-- Pretensión Salarial -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-dollar-sign"></i>
+                    Pretensión Salarial
+                </h2>
+                <div class="info-item">
+                    <strong>$18.000 - $25.000</strong> (negociable según responsabilidades)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="action-buttons print-hidden">
+        <button class="btn btn-whatsapp" onclick="contactWhatsApp()" title="Contactar por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="btn btn-download" onclick="downloadPDF()" title="Descargar CV en PDF">
+            <i class="fas fa-download"></i>
+        </button>
+    </div>
+
+    <script>
+        function contactWhatsApp() {
+            const phoneNumber = '5493764530613';
+            const message = encodeURIComponent('Hola Sixta, vi tu CV y me gustaría contactarte.');
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('cv-content');
+            const opt = {
+                margin: 10,
+                filename: 'CV_Sixta_Villar.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, logging: false },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Ocultar botones antes de generar PDF
+            document.querySelector('.action-buttons').style.display = 'none';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                document.querySelector('.action-buttons').style.display = 'flex';
+            });
+        }
+
+        // Animación de entrada
+        window.addEventListener('load', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
